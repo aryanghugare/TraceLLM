@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: 11 15 18;
+  --surface: 20 27 33;
+  --surface-strong: 26 34 41;
+  --text: 234 241 246;
+  --muted: 141 160 172;
+  --accent: 52 208 193;
+  --accent-2: 255 159 67;
+  --border: 47 63 74;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  color: rgb(var(--text));
+  font-family: "IBM Plex Sans", system-ui, sans-serif;
+  background:
+    radial-gradient(circle at 12% 8%, rgba(52, 208, 193, 0.2), transparent 45%),
+    radial-gradient(circle at 92% 16%, rgba(255, 159, 67, 0.18), transparent 40%),
+    linear-gradient(120deg, #0b1114, #101a1f 45%, #141f26 100%);
+}
+
+@layer components {
+  .panel {
+    @apply rounded-2xl border border-border/60 bg-surface/80 shadow-glow backdrop-blur-xl;
+  }
+
+  .panel-strong {
+    @apply rounded-2xl border border-border/80 bg-surface-strong/90 shadow-glow-strong backdrop-blur-xl;
+  }
+
+  .glass-button {
+    @apply rounded-xl border border-border/60 bg-surface/70 px-3 py-2 text-sm font-medium text-text transition hover:bg-surface-strong/80;
+  }
+
+  .chip {
+    @apply rounded-full border border-border/60 bg-surface/60 px-3 py-1 text-xs uppercase tracking-[0.2em] text-muted;
+  }
+}
