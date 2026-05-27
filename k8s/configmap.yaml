@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: trace-llm-config
+data:
+  NODE_ENV: "production"
+  PORT: "3000"
+  LLM_PROVIDER: "openai"
+  VITE_API_BASE: "http://trace-llm-api:3000"
+  VITE_API_PROXY: "http://trace-llm-api:3000"

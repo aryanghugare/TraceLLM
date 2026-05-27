@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: trace-llm-web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: trace-llm-web
+  template:
+    metadata:
+      labels:
+        app: trace-llm-web
+    spec:
+      containers:
+        - name: web
+          image: trace-llm-web:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5173
+          envFrom:
+            - configMapRef:
+                name: trace-llm-config
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "128Mi"
+            limits:
+              cpu: "250m"
+              memory: "256Mi"
