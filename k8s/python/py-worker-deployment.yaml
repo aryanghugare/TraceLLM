@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: trace-llm-py-worker
+  labels:
+    app: trace-llm-py-worker
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: trace-llm-py-worker
+  template:
+    metadata:
+      labels:
+        app: trace-llm-py-worker
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9100"
+    spec:
+      containers:
+        - name: worker
+          image: trace-llm-py:latest
+          imagePullPolicy: IfNotPresent
+          command: ["arq", "app.worker.WorkerSettings"]
+          ports:
+            - containerPort: 9100
+              name: metrics
+          envFrom:
+            - configMapRef:
+                name: trace-llm-config
+            - secretRef:
+                name: trace-llm-secrets
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "96Mi"
+            limits:
+              cpu: "250m"
+              memory: "256Mi"
+          livenessProbe:
+            httpGet:
+              path: /metrics
+              port: 9100
+            initialDelaySeconds: 15
+            periodSeconds: 15
