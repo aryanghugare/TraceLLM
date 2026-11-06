@@ -1,0 +1,10 @@
+[project]
+name = "tracellm-python-service"
+version = "1.0.0"
+description = "TraceLLM API and ingestion worker in Python (FastAPI, arq, MongoDB, Prometheus)"
+requires-python = ">=3.11"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+filterwarnings = ["ignore::DeprecationWarning"]
